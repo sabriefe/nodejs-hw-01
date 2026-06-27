@@ -1,3 +1,14 @@
 import { PATH_DB } from '../constants/contacts.js';
-
-export const writeContacts = async (updatedContacts) => {};
+import fs from 'node:fs/promises';
+export const writeContacts = async (updatedContacts) => {
+  try {
+    await fs.writeFile(
+      PATH_DB,
+      JSON.stringify(updatedContacts, null, 2),
+      'utf8',
+    );
+  } catch (error) {
+    console.log('Cannot write contacts', error.message);
+    throw error;
+  }
+};
